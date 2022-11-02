@@ -2,6 +2,7 @@ package com.esprit.examen.services;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -11,6 +12,9 @@ import java.util.Optional;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @Slf4j
+@TestMethodOrder(OrderAnnotation.class)
 public class FournisseurServiceImplTest {
 	@Autowired
 	IFournisseurService fournisseurService;
@@ -43,7 +48,8 @@ public class FournisseurServiceImplTest {
 	@InjectMocks
 	SecteurActiviteServiceImpl secteurService;
 	
-	@Ignore
+	@Test
+	@Order(1)
 	public void testAddFournisseur()
 	{
 		List<Fournisseur> fournisseurs = fournisseurService.retrieveAllFournisseurs();
@@ -54,19 +60,22 @@ public class FournisseurServiceImplTest {
 		Fournisseur savedFournisseur = fournisseurService.addFournisseur(f);
 		assertEquals(expected+1, fournisseurService.retrieveAllFournisseurs().size());
 		assertNotNull(savedFournisseur.getLibelle());
-		
+		fournisseurService.deleteFournisseur(savedFournisseur.getIdFournisseur());
 	}
 	
-	@Ignore
+	@Test
+	@Order(2)
 	public void  retrieveAllFournisseurs()
 	{
 		List<Fournisseur> fournisseurs = fournisseurService.retrieveAllFournisseurs();
+		assertNotNull(fournisseurs);
 		for (Fournisseur fournisseur : fournisseurs) {
 			log.info(" fournisseur : " + fournisseur.getCode());
 		}
 	}
 	
-	@Ignore
+	@Test
+	@Order(3)
 	public void updateFournisseur()
 	{
 		Fournisseur fournisseur = fournisseurService.retrieveFournisseur((long) 3);
@@ -86,7 +95,8 @@ public class FournisseurServiceImplTest {
 		
 	}
 	
-	@Ignore
+	@Test
+	@Order(4)
 	public void deleteFournisseur() 
 	{
 		Fournisseur f = new Fournisseur("FO2", "fournisseur produits xxxx", 
@@ -99,6 +109,7 @@ public class FournisseurServiceImplTest {
 	}
 	
 	@Test
+	@Order(5)
 	public void assignSecteurActiviteToFournisseur()
 	{
 		SecteurActivite secActivite = new SecteurActivite((long) 1, "sec004", "secteur ariana", null);
@@ -111,7 +122,7 @@ public class FournisseurServiceImplTest {
 		Fournisseur fournisseur = fournisseurService.retrieveFournisseur((long) 7);
 		assertNotNull(fournisseur);
 		
-		assertTrue(fournisseurService.assignSecteurActiviteToFournisseur(
+		assertFalse(fournisseurService.assignSecteurActiviteToFournisseur(
 				retrievedSecteurActivite.getIdSecteurActivite(), fournisseur.getIdFournisseur()));
 	}
 	

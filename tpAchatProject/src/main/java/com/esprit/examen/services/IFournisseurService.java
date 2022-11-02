@@ -1,6 +1,7 @@
 package com.esprit.examen.services;
 
 import java.util.List;
+
 import com.esprit.examen.entities.Fournisseur;
 
 public interface IFournisseurService {
@@ -15,6 +16,7 @@ public interface IFournisseurService {
 
 	Fournisseur retrieveFournisseur(Long id);
 	
-	void assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur);
+	boolean assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur);
+
 
 }
