@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Clean workspace') {
+        stage('Clean Workspace') {
             steps{
                  sh "rm -rf *"
             }
@@ -13,7 +13,7 @@ pipeline {
                  sh 'echo $WORKSPACE'
             }
         }
-        stage('Change dir'){
+        stage('Change Dir'){
             steps{
                 sh 'cp -a ./tpAchatProject/. .'
                 sh 'rm -rf ./tpAchatProject'
@@ -31,5 +31,10 @@ pipeline {
                  sh 'mvn compile'
             }
         }	
+        stage("Unit tests") {
+			steps {
+				sh 'mvn test'
+			}
+		}
 	}
 }
