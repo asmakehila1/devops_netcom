@@ -4,7 +4,7 @@ pipeline {
    stages {
         stage('clean') {
               steps{
-                dir("${env.WORKSPACE}/tpAchatProjet"){
+                dir("${env.WORKSPACE}/tpAchatProject"){
                     sh "pwd"
                     sh 'mvn clean'
                 }
