@@ -1,16 +1,35 @@
 pipeline {
-   agent any
-
-   stages {
-        stage('clean') {
-              steps{
-                dir("${env.WORKSPACE}/tpAchatProject"){
-                    sh "pwd"
-                    sh 'mvn clean'
-                }
+    agent any
+    stages {
+        stage('Clean workspace') {
+            steps{
+                 sh "rm -rf *"
             }
-       }
-      
-   }
-
+        }
+        stage('Chekout Git') { 
+            steps {
+                 git branch:'damos_ayobo',
+                 url: 'https://github.com/asmakehila1/devops_netcom.git'
+                 sh 'echo $WORKSPACE'
+            }
+        }
+        stage('Change dir'){
+            steps{
+                sh 'cp -a ./tpAchatProject/. .'
+                sh 'rm -rf ./tpAchatProject'
+                // List the final content
+                sh 'ls -la'
+            }
+        }
+        stage('MVN Clean') { 
+            steps {
+                 sh 'mvn clean'
+            }
+        }
+        stage('MVN Compile') { 
+            steps {
+                 sh 'mvn compile'
+            }
+        }	
+	}
 }
