@@ -2,12 +2,15 @@ pipeline {
    agent any
 
    stages {
-       steps{
+        stage('clean') {
+              steps{
                 dir("${env.WORKSPACE}/tpAchatProjet"){
                     sh "pwd"
                     sh 'mvn clean'
                 }
             }
+       }
+      
    }
 
 }
