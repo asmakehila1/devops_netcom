@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+    registry = "damosayb/devops-netcom"
+    registryCredential = 'dockerHub'
+}
     stages {
         stage('Clean Workspace') {
             steps{
@@ -44,13 +48,13 @@ pipeline {
   					-Dsonar.login=076c3638275bb6a06907205a9c8e017b04a79f79 "
 			}
 		}	
-		stage('Build docker image'){
-            steps{
-                script{
-                    sh 'docker build -t damosayb/devops-netcom .'
-                }
-            }
-        }
+		stage('Building image') {
+	        steps{
+		        script {
+		          docker.build registry + ":$BUILD_NUMBER"
+		        }
+	        }
+	    }
 
 	}
 }
