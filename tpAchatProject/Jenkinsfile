@@ -36,5 +36,13 @@ pipeline {
 				sh 'mvn test'
 			}
 		}
+		stage("Static tests") {
+			steps {
+				sh "mvn clean sonar:sonar \
+  					-Dsonar.projectKey=projet-devops \
+					-Dsonar.host.url=http://172.20.2.128:9000 \
+  					-Dsonar.login=076c3638275bb6a06907205a9c8e017b04a79f79 "
+			}
+		}
 	}
 }
