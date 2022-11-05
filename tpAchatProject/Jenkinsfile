@@ -47,7 +47,7 @@ pipeline {
 		stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t damosayb/achat .'
+                    sh 'docker build -t damosayb/devops-netcom .'
                 }
             }
         }
