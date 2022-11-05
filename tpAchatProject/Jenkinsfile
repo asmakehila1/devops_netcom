@@ -43,6 +43,14 @@ pipeline {
 					-Dsonar.host.url=http://172.20.2.128:9000 \
   					-Dsonar.login=076c3638275bb6a06907205a9c8e017b04a79f79 "
 			}
-		}
+		}	
+		stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t damosayb/tpAchatProject .'
+                }
+            }
+        }
+
 	}
 }
