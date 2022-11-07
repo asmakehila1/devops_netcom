@@ -1,16 +1,12 @@
 package com.esprit.examen.services;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.esprit.examen.entities.Stock;
 
 @RunWith(SpringRunner.class)
@@ -21,8 +17,8 @@ public class StockServiceImplTest {
 	
 	@Test
 	public void testAddStock() {
-		//List<Stock> stocks = stockService.retrieveAllStocks();
-		// int expected=stocks.size();
+	//	List<Stock> stocks = stockService.retrieveAllStocks();
+	//	int expected=stocks.size();
 		Stock s = new Stock("stock test",10,100);
 		Stock savedStock= stockService.addStock(s);
 		
