@@ -23,7 +23,7 @@ import java.text.ParseException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ReglementServicelmplTest {
+public class ReglementServiceImplTest {
 	@Autowired
 	IReglementService reglementService;
 	
