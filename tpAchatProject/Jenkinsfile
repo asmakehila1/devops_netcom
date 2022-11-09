@@ -34,12 +34,7 @@ pipeline {
             steps {
                  sh 'mvn compile'
             }
-        }	
-        stage('MVN Install') { 
-            steps {
-                 sh 'mvn install'
-            }
-        }
+        }	    
         stage("Unit tests") {
 			steps {
 				sh 'mvn test'
@@ -53,6 +48,11 @@ pipeline {
   					-Dsonar.login=076c3638275bb6a06907205a9c8e017b04a79f79 "
 			}
 		}	
+		stage('MVN Install') { 
+            steps {
+                 sh 'mvn install'
+            }
+        }
 		stage('Building Docker Image') {
 	        steps{
 		        script {
