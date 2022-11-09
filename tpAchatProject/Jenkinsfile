@@ -60,6 +60,13 @@ pipeline {
 		        }
 	        }
 	    }
+	    stage('build docker compose') {
+	         steps{
+	             script{
+	                  sh 'docker-compose up'
+	             	 }
+	         }
+		}   
 	    stage('Deploy Docker Image') {
 		  steps{
 			    script {
