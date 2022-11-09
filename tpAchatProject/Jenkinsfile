@@ -74,14 +74,13 @@ pipeline {
 		   	   sh "docker rmi $registry:$BUILD_NUMBER"
 		  }
 	   }
-	   post {
-	        success  {
-	            emailext body: 'The Pipeline success :) \nClick the following link for more http://172.20.2.128:8080/job/devops-netcom/', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Build success'
-	        }
-        
-	       failure  {
-	            emailext body: 'The Pipeline failed :( \nClick the following link for more http://172.20.2.128:8080/job/devops-netcom/', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Build failed'
-	        }
-	    }
 	}
+	post {
+        success  {
+            emailext body: 'The Pipeline success :) \nClick the following link for more http://172.20.2.128:8080/job/devops-netcom/', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Build success'
+        }  
+       failure  {
+            emailext body: 'The Pipeline failed :( \nClick the following link for more http://172.20.2.128:8080/job/devops-netcom/', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Build failed'
+        }
+    }
 }
