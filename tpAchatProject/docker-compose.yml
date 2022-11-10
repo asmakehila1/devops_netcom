@@ -7,7 +7,7 @@ services:
       - "3307:3306"
     environment:
       - MYSQL_DATABASE= tpachato
-      - MYSQL_ROOT_PASSWORD=MYSQL_ALLOW_EMPTY_PASSWORD
+      - MYSQL_ROOT_PASSWORD=esprit
  spring_app:
    image: damosayb/devops-netcom:37
    container_name: devops-netcom
