@@ -9,7 +9,7 @@ services:
       - MYSQL_DATABASE= tpachato
       - MYSQL_ROOT_PASSWORD=MYSQL_ALLOW_EMPTY_PASSWORD
  spring_app:
-   image: damosayb/devops-netcom
+   image: damosayb/devops-netcom:37
    container_name: devops-netcom
    restart: on-failure
    ports:
