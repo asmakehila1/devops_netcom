@@ -1,4 +1,5 @@
 package com.esprit.examen.services;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,6 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.esprit.examen.entities.Fournisseur;
 import com.esprit.examen.entities.SecteurActivite;
+import com.esprit.examen.repositories.SecteurActiviteRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +43,12 @@ import lombok.extern.slf4j.Slf4j;
 public class SecteurActiviteServiceTest {
 	@Autowired
 	ISecteurActiviteService SecteurActiviteService;
+	@Mock
+	SecteurActiviteRepository SecteurActiviteRepository;
+	
+	@InjectMocks
+	SecteurActiviteServiceImpl SecteurActiviteServiceImpl;
+	
 	@Test
 	@Order(1)
 	public void testAddSecteurActivite()
@@ -94,6 +102,17 @@ public class SecteurActiviteServiceTest {
 		assertNotNull(savedSecteurActivite);
 		SecteurActiviteService.deleteSecteurActivite(savedSecteurActivite.getIdSecteurActivite());
 		assertNull(SecteurActiviteService.retrieveSecteurActivite(savedSecteurActivite.getIdSecteurActivite()));
+		
+	}
+	
+	@Test
+	@Order(5)
+	public void compareSavedDataToNew()
+	{
+		
+			SecteurActivite sa = new SecteurActivite((long) 2, "sa01", "sa1_libelle", null);
+			when(SecteurActiviteRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(sa));
+			assertThat(SecteurActiviteRepository.findById((long) 2)).isEqualTo(sa);
 		
 	}
 	

@@ -1,4 +1,5 @@
 package com.esprit.examen.services;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +26,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import com.esprit.examen.entities.Operateur;
+import com.esprit.examen.entities.SecteurActivite;
+import com.esprit.examen.repositories.OperateurRepository;
+import com.esprit.examen.repositories.SecteurActiviteRepository;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
@@ -36,6 +41,13 @@ import lombok.extern.slf4j.Slf4j;
 public class OperateurServiceTest {
 	@Autowired
 	IOperateurService OperateurService;
+	
+	@Mock
+	OperateurRepository OperateurRepository;
+	
+	@InjectMocks
+	OperateurServiceImpl OperateurServiceImpl;
+	
 	
 	@Test
 	@Order(1)
@@ -92,6 +104,16 @@ public class OperateurServiceTest {
 		assertNotNull(savedOperateur);
 		OperateurService.deleteOperateur(savedOperateur.getIdOperateur());
 		assertNull(OperateurService.retrieveOperateur(savedOperateur.getIdOperateur()));
+		
+	}
+	
+	@Test
+	@Order(5)
+	public void compareSavedDataToNew()
+	{
+		Operateur op = new Operateur((long) 2,"nom_op1", "prenom_op1", "op1_password", null);
+			when(OperateurRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(op));
+			assertThat(OperateurRepository.findById((long) 2)).isEqualTo(op);
 		
 	}
 	
